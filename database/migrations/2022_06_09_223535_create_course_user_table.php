@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeachersCoursesTable extends Migration
+class CreateCourseUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,22 @@ class CreateTeachersCoursesTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('teachers_courses', function (Blueprint $table) {
-            $table->bigIncrements('id_user');
-            $table->timestamps();
+    {    
+
+        Schema::create('course_user', function (Blueprint $table) {
+            $table->Increments('id');
+        });
+    
+        Schema::table('course_user', function($table){
+            $table->unsignedBigInteger('user_id')->unique();
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
         
-        Schema::table('teachers_courses', function($table){
+        Schema::table('course_user', function($table){
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')
             ->references('id')

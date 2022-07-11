@@ -9,9 +9,5 @@ class Score extends Model
 {
     use HasFactory;
 
-        protected $fillable = [
-        'id',
-        
-    ];
-}
+        protected $fillable = [ 'id', 'student_id', 'course_id', 'score' ];
 }

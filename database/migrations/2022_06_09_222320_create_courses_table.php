@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('code')->unique();
+            $table->softDeletes();
 
             $table->timestamps();
 
@@ -31,5 +32,6 @@ class CreateCoursesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('courses');
+        $table->dropSoftDeletes();
     }
 }

@@ -21,10 +21,12 @@ class TeacherController extends Controller
             $request->only('name', 'email')
             + [
                 'user_id' => 'teacher',
-                'password' => bcrypt($request->input('password')),
+                'password' => bcrypt($request->password),
                 'code' => Str::random(10)
             ]
         );
+
+        
             return response()->json([
             'res' => true,
             'msg' => 'Teacher guardado correctamente'
@@ -50,7 +52,7 @@ class TeacherController extends Controller
 
         return response()->json([
              'res' => true,
-             'mesaje' => 'Teacher Actualizado'
+             'msg' => 'Teacher Actualizado'
         ],200);
      
     }

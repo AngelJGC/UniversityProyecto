@@ -21,7 +21,7 @@ class StudentController extends Controller
             $request->only('name', 'email')
             + [
                 'user_id' => 'student',
-                'password' => bcrypt($request->input('password')),
+                'password' => bcrypt($request->password),
                 'code' => Str::random(10)
             ]
         );
@@ -50,7 +50,7 @@ class StudentController extends Controller
 
         return response()->json([
              'res' => true,
-             'mesaje' => 'Student Actualizado'
+             'msg' => 'Student Actualizado'
         ],200);  
        
     }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\GuardarCourseRequest;
+use App\Http\Requests\ActualizarCourseRequest;
 use App\Models\Course;
+use App\Models\User;
 
 class CourseController extends Controller
 {
@@ -22,10 +24,13 @@ class CourseController extends Controller
                 'code' => Str::random(10)
             ]
         );
+        
+        $course->users()->attach($request->users);
             return response()->json([
             'res' => true,
             'msg' => 'Course guardado correctamente'
         ],200);  
+
     } 
 
     public function show(Request $request)
@@ -33,13 +38,29 @@ class CourseController extends Controller
        
     }
 
-    public function update(Request $request)
+    public function update(ActualizarCourseRequest $request, Course $course)
     {
-           
+        $course->update($request->all());
+
+
+        return response()->json([
+             'res' => true,
+             'mesaje' => 'Course Actualizado'
+        ],200);
+        $course->save();
+
     }
 
-    public function destroy(Request $request)
+    public function destroy(Course $course)
     {
+        $course->delete();
 
+        $course->users()->detach();
+
+
+        return response()->json([
+             'res' => true,
+             'mesaje' => 'Course Eliminado'
+        ],200);
     }   
 }
